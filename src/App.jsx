@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
-import Inicio from "./pages/Inicio";
+import Inicio from "./pages/inicio";
 import Escenario from "./pages/Escenario";
 import Productos from "./pages/Productos";
 import Contacto from "./Contacto";
@@ -27,9 +27,9 @@ export default function App() {
             <Layout reiniciar={reiniciar}>
               <Routes>
                 <Route path="/" element={<Inicio />} />
-                <Route 
-                  path="/juega" 
-                  element={<Escenario posicion={posicion} setPosicion={setPosicion} />} 
+                <Route
+                  path="/juega"
+                  element={<Escenario posicion={posicion} setPosicion={setPosicion} />}
                 />
                 <Route path="/catalogo" element={<Productos />} />
                 <Route path="/contactame" element={<Contacto />} />
