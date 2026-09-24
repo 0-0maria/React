@@ -1,5 +1,6 @@
 import { useAuth } from "../../context/AuthContext";
-import { LogOut, User } from "lucide-react";
+import { LogOut } from "lucide-react";
+import sumerjpg from "../../../src/assets/sumerjpg.jpg";
 
 export default function Perfil() {
   const { usuario, cerrarSesion } = useAuth();
@@ -15,8 +16,8 @@ export default function Perfil() {
   return (
     <div className="max-w-md mx-auto my-12 p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700">
       <div className="flex flex-col items-center gap-4 text-center">
-        <div className="w-20 h-20 rounded-full bg-pink-100 text-pink-500 flex items-center justify-center">
-          <User size={40} />
+        <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-pink-500 shadow-sm flex items-center justify-center">
+          <img src={sumerjpg} alt="Perfil" className="w-full h-full object-cover" />
         </div>
         <div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-white">

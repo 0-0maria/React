@@ -4,12 +4,12 @@ function Navbar() {
   const linkStyle = {
     backgroundColor: "#d86997",
     color: "white",
-    padding: "6px 20px",
+    padding: "6px 15px",
     borderRadius: "20px",
     textDecoration: "none",
     fontWeight: "bold",
     border: "1px solid black",
-    fontSize: "0.9rem",
+    fontSize: "0.85rem",
   };
 
   const cellStyle = {
@@ -24,7 +24,7 @@ function Navbar() {
     <nav
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(4, 1fr)",
+        gridTemplateColumns: "repeat(5, 1fr)",
         width: "100%",
         height: "100%",
       }}
@@ -42,6 +42,11 @@ function Navbar() {
       <div style={cellStyle}>
         <Link to="/catalogo" style={linkStyle}>
           Catálogo
+        </Link>
+      </div>
+      <div style={cellStyle}>
+        <Link to="/aprendizaje" style={linkStyle}>
+          Aprendizaje
         </Link>
       </div>
       <div style={{ ...cellStyle, borderRight: "none" }}>
