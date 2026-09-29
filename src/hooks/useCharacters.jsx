@@ -1,12 +1,5 @@
 import { useState, useEffect } from "react";
 
-const RANGO_PRECIO = { min: 7000, max: 50000 };
-
-function precioDeterminista(id) {
-    const rango = RANGO_PRECIO.max - RANGO_PRECIO.min + 1;
-    return RANGO_PRECIO.min + ((id * 2654435761) % rango);
-}
-
 export function useCharacters(limit = 12) {
     const [personajes, setPersonajes] = useState([]);
     const [cargando, setCargando] = useState(true);
@@ -14,25 +7,32 @@ export function useCharacters(limit = 12) {
 
     useEffect(() => {
         let activo = true;
-        async function cargarPersonajes() {
+        async function cargarDatos() {
             try {
                 setCargando(true);
-                const resPersonajes = await fetch("https://rickandmortyapi.com/api/character/?page=1");
-                if (!resPersonajes.ok) throw new Error("No se pudo cargar el catálogo");
-                const dataPersonajes = await resPersonajes.json();
-                const lista = dataPersonajes.results.slice(0, limit);
-
+                const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
+                if (!res.ok) throw new Error("No se pudo cargar el catálogo de Pokémon");
+                const data = await res.json();
+                
                 const listaConDetalles = await Promise.all(
-                    lista.map(async (personaje) => {
-                        const resEpisodio = await fetch(personaje.episode[0]);
-                        const episodio = await resEpisodio.json();
+                    data.results.map(async (poke, index) => {
+                        const resDetalle = await fetch(poke.url);
+                        const detalle = resDetalle.ok ? await resDetalle.json() : null;
+                        
                         return {
-                            ...personaje,
-                            primeraAparicion: episodio.air_date,
-                            precio: precioDeterminista(personaje.id),
+                            id: index + 1,
+                            name: poke.name.toUpperCase(),
+                            image: detalle ? detalle.sprites.other["official-artwork"].front_default : "https://via.placeholder.com/150",
+                            status: "Disponible",
+                            gender: "Pokémon",
+                            species: "Criatura",
+                            primeraAparicion: "Generación I",
+                            precio: (index + 1) * 2500 + 10000,
+                            description: `Pokémon oficial número ${index + 1} listo para la batalla.`
                         };
                     })
                 );
+
                 if (activo) setPersonajes(listaConDetalles);
             } catch (err) {
                 if (activo) setError(err.message);
@@ -40,7 +40,7 @@ export function useCharacters(limit = 12) {
                 if (activo) setCargando(false);
             }
         }
-        cargarPersonajes();
+        cargarDatos();
         return () => { activo = false; };
     }, [limit]);
 

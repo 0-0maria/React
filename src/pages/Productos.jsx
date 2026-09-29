@@ -9,10 +9,10 @@ function Productos() {
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100">Catálogo</h2>
         <p className="text-slate-500 dark:text-slate-400 mt-2">
-          Personajes de Rick and Morty disponibles en la tienda
+          Productos disponibles en la tienda
         </p>
 
-        {cargando && <p className="mt-10 text-center text-slate-400">Cargando personajes...</p>}
+        {cargando && <p className="mt-10 text-center text-slate-400">Cargando productos...</p>}
         {error && <p className="mt-10 text-center text-rose-500">{error}</p>}
 
         {!cargando && !error && (
